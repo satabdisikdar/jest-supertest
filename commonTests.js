@@ -1,4 +1,4 @@
-var supertest = require('supertest'); //require supertest
+var supertest = require('supertest'); //require supertest for hitting the app
 const request = supertest('https://reqres.in/'); //supertest hits the HTTP server (your app)
 const cors = require('cors')
 /*
