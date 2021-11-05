@@ -5,8 +5,8 @@
   "main": "index.js",
   "jest": {
     "verbose": true,
-    "testSequencer": "/home/abc/jest-supertest/testSequencer.js",
-    "coverageDirectory": "/home/abc/jest-supertest/coverage/my_reports/",
+    "testSequencer": "./sequencer/testSequencer.js",
+    "coverageDirectory": "coverage/my_reports/",
     "coverageReporters": ["html","text"],
     "coverageThreshold": {
       "global": {
@@ -18,16 +18,16 @@
     }
   },
   "scripts": {
-    "test": "NODE_TLS_REJECT_UNAUTHORIZED=0 jest --reporters default jest-stare --coverage --detectOpenHandles --runInBand --testTimeout=60000",
+    "test": "jest --reporters default jest-stare --coverage --detectOpenHandles --runInBand --testTimeout=60000",
     "test:watch": "jest --verbose --watchAll"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cors": "^2.8.5",
-    "jest": "^25.5.4",
-    "jest-serial-runner": "^1.1.0",
-    "jest-stare": "^2.0.1",
-    "supertest": "^4.0.2"
+    "jest": "^27.3.1",
+    "jest-serial-runner": "^1.2.0",
+    "jest-stare": "^2.3.0",
+    "supertest": "^6.1.6"
   }
 }
