@@ -1,5 +1,5 @@
 const request = require('../commonTests');
-const fs = require('fs'); //file system
+const fs = require('fs');
 const data = require('../data.json'); //data.json containing the global variables
 
 //Update user data
@@ -12,23 +12,20 @@ describe("PUT user details", () => {
             newDetails = {
                 "name": "morpheus",
                 "job": "zion resident"
-            }; // details to be updated
+            };
   
         });
         afterEach(function () {
             console.log("user details are updated");
         });
   
-        test("Update user now", async done =>{
+        test("Update user now", async () =>{
 
             console.log("User to be updated : ", data.userId)
 
-            const response = await request.request.put(`api/users/${data.userId}`).send(newDetails) //call put() of supertest
-                                //.set('Authorization', `Token ${request.token}`) 
-                                        .expect(200)
+            const response = await request.request.put(`api/users/${data.userId}`).send(newDetails).expect(200)
             expect(response.body.updatedAt).toBeDefined();
             console.log("UPDATED RESPONSE : ", response.body);
-            done();
     })
   }
     catch(err){
@@ -43,16 +40,14 @@ describe("DELETE user details", () =>{
             console.log("To delete user : ", data.userId)
         });
 
-        test("Delete request", async done =>{
-            const response = await request.request.delete(`api/users/${data.userId}`) //invoke delete() of supertest
-                                        .expect(204) 
+        test("Delete request", async () =>{
+            const response = await request.request.delete(`api/users/${data.userId}`).expect(204) 
             console.log("DELETE RESPONSE : ", response.body);
-            done(); 
         });
 
         afterAll(function (){
             console.log("user is deleted!!")
-            fs.unlinkSync('data.json'); //remove data.json after all tests are run
+            fs.unlinkSync('data.json');
         });
     }
 
