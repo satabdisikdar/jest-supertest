@@ -3,7 +3,8 @@ jobs:
   build:
     steps:
       - checkout # check out the code in the project directory
-      - restore_cache: *deploy_restore_cache
+      - restore_cache: 
+        key: dependency-cache-{{ checksum "package.json" }}-2
       - run: sudo npm install -g npm@latest
       - run: npm install
       - save_cache:
