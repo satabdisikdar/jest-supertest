@@ -1,18 +1,18 @@
 version: 2.1
 jobs:
   build:
+    docker:
+      - image: cimg/node:16.13.0
     steps:
       - checkout # check out the code in the project directory
       - restore_cache: 
-          key: dependency-cache-{{ checksum "package.json" }}-2
+          key: dependency-cache-{{ checksum "package.json" }}
       - run: sudo npm install -g npm@latest
       - run: npm install
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}-2
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - "./node_modules"
   run-test:
     steps:
       - run: npm run test # run the command
-
-      
