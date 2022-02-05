@@ -1,18 +1,27 @@
 version: 2.1
+
 jobs:
   build:
     docker:
       - image: cimg/node:16.13.0
     steps:
       - checkout # check out the code in the project directory
-      - restore_cache: 
-          key: dependency-cache-{{ checksum "package.json" }}
       - run: sudo npm install -g npm@latest
       - run: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - "./node_modules"
+  test:
+    - run: *run_tests
+  
+workflows:  
   run-test:
-    steps:
-      - run: npm run test # run the command
+    when:
+      - equal: [ master, << pipeline.git.branch >> ]
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      
+aliases:
+  - &run_tests
+    name: Running API tests
+    command: npm run test
