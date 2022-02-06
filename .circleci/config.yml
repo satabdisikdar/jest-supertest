@@ -1,5 +1,8 @@
 version: 2.1
-
+executors:
+  test_exec:
+    docker:
+      - image: cimg/node:16.13.0
 jobs:
   build:
     docker:
@@ -9,7 +12,8 @@ jobs:
       - run: sudo npm install -g npm@latest
       - run: npm install
   test:
-    - run: *run_tests
+    executor: test_exec
+    steps: *run_tests
   
 workflows:  
   run-test:
@@ -24,4 +28,7 @@ workflows:
 aliases:
   - &run_tests
     name: Running API tests
-    command: npm run test
+    command: |
+      node -v
+      npm -v
+      npm run test
