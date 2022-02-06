@@ -14,11 +14,11 @@ workflows:
 
 aliases:
   - &run_tests
-    name: Running API tests
-    command: |
-      node -v
-      npm -v
-      npm run test
+      name: Running API tests
+      command: |
+        node -v
+        npm -v
+        npm run test
 
 jobs:
   build:
