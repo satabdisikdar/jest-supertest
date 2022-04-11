@@ -1,5 +1,25 @@
 version: 2.1
 
+workflows:  
+  run-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+
+aliases:
+  - &run_tests
+      name: Running API tests
+      command: |
+        node -v
+        npm -v
+        npm run test
+
 jobs:
   build:
     docker:
@@ -12,23 +32,3 @@ jobs:
     docker:
       - image: cimg/node:17.4.0
     steps: *run_tests
-  
-workflows:  
-  run-test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-      
-aliases:
-  - &run_tests
-    name: Running API tests
-    command: |
-      node -v
-      npm -v
-      npm run test
