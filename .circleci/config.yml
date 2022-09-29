@@ -1,29 +1,29 @@
 version: 2.1
-
+executors:
+  test_exec:
+    docker:
+      - image: cimg/node:16.13.0
 jobs:
   build:
     docker:
-      - image: cimg/node:17.4.0
+      - image: cimg/node:16.13.0
     steps:
       - checkout # check out the code in the project directory
       - run: sudo npm install -g npm@latest
       - run: npm install
   test:
-    docker:
-      - image: cimg/node:17.4.0
+    executor: test_exec
     steps: *run_tests
   
 workflows:  
   run-test:
+    when:
+      - equal: master
     jobs:
       - build
       - test:
           requires:
             - build
-          filters:
-            branches:
-              only:
-                - master
       
 aliases:
   - &run_tests
